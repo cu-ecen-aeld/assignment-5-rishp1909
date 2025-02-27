@@ -5,12 +5,18 @@
 source shared.sh
 
 EXTERNAL_REL_BUILDROOT=../base_external
+BR2_REPO=git@gitlab.com:buildroot.org/buildroot.git
+BR2_VERSION=2024.02.x
 git submodule init
 git submodule sync
 git submodule update
 
 set -e 
 cd `dirname $0`
+
+if [ ! -d buildroot ]; then
+    git clone ${BR2_REPO} --depth 1 --single-branch --branch ${BR2_VERSION}
+fi
 
 if [ ! -e buildroot/.config ]
 then
